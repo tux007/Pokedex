@@ -19,6 +19,8 @@ const typeColors = {
   steel: "#B8B8D0",
 };
 
+const API_BASE_URL = "https://pokeapi.co/api/v2/pokemon";
+
 let offset = 0;
 let currentPokemons = [];
 let allLoadedPokemons = [];
@@ -39,7 +41,7 @@ nextBtn.addEventListener("click", loadNextPokemons);
 // Load all Pokemon names for search functionality
 async function loadAllPokemonNames() {
   try {
-    const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=10000");
+    const res = await fetch(`${API_BASE_URL}?limit=10000`);
     const data = await res.json();
     allPokemonNames = data.results;
   } catch (error) {
@@ -123,9 +125,7 @@ searchInput.addEventListener("input", () => {
 
 async function loadCurrentPage() {
   currentPokemons = [];
-  const res = await fetch(
-    `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=20`
-  );
+  const res = await fetch(`${API_BASE_URL}?offset=${offset}&limit=20`);
   const data = await res.json();
 
   for (let item of data.results) {
@@ -139,9 +139,7 @@ async function loadNextPokemons() {
   nextBtn.disabled = true;
   spinner.style.display = "block";
 
-  const res = await fetch(
-    `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=20`
-  );
+  const res = await fetch(`${API_BASE_URL}?offset=${offset}&limit=20`);
   const data = await res.json();
 
   currentPokemons = [];
@@ -167,9 +165,7 @@ async function loadPreviousPokemons() {
   spinner.style.display = "block";
 
   offset -= 20;
-  const res = await fetch(
-    `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=20`
-  );
+  const res = await fetch(`${API_BASE_URL}?offset=${offset}&limit=20`);
   const data = await res.json();
 
   currentPokemons = [];
@@ -261,3 +257,4 @@ document.getElementById("next").addEventListener("click", () => {
 
 loadAllPokemonNames();
 loadNextPokemons();
+
