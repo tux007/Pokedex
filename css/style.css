@@ -110,6 +110,26 @@ header h1 {
   background-color: #aaa;
   cursor: not-allowed;
 }
+.navigation-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 30px auto;
+}
+.nav-btn {
+  padding: 10px 20px;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  min-width: 120px;
+}
+.nav-btn:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
 .spinner {
   margin: 20px auto;
   border: 6px solid #f3f3f3;
@@ -187,5 +207,10 @@ header h1 {
   .search-box {
     flex-direction: column;
     align-items: stretch;
+  }
+  .navigation-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 }
