@@ -50,7 +50,6 @@ clearBtn.addEventListener("click", () => {
   resetSearch();
 });
 
-// Load all Pokemon names for search functionality
 async function loadAllPokemonNames() {
   try {
     const res = await fetch(`${API_BASE_URL}?limit=10000`);
@@ -78,7 +77,6 @@ searchBtn.addEventListener("click", async () => {
     spinner.style.display = "block";
 
     try {
-      // Filter Pokemon names that include the search query
       const matchingPokemons = allPokemonNames.filter((pokemon) =>
         pokemon.name.toLowerCase().includes(query)
       );
@@ -89,16 +87,12 @@ searchBtn.addEventListener("click", async () => {
       }
 
       currentPokemons = [];
-
-      // Load details for matching Pokemon (limit to first 20 results)
       const pokemonsToLoad = matchingPokemons.slice(0, 20);
       for (let pokemon of pokemonsToLoad) {
         const pokeData = await fetch(pokemon.url).then((res) => res.json());
         currentPokemons.push(pokeData);
         renderCard(pokeData);
       }
-
-      // Hide navigation buttons during search
       startBtn.style.display = "none";
       prevBtn.style.display = "none";
       nextBtn.style.display = "none";
@@ -185,19 +179,7 @@ function renderCard(poke) {
   const bgColor = typeColors[mainType] || "#ddd";
   card.style.backgroundColor = bgColor + "88";
 
-  card.innerHTML = `
-        <img src="${poke.sprites.front_default}" alt="${poke.name}">
-        <div class="pokemon-name">${poke.name.toUpperCase()}</div>
-        <div class="types">
-          ${types
-            .map(
-              (t) =>
-                `<span class="type" style="background:${typeColors[t]}">${t}</span>`
-            )
-            .join("")}
-        </div>
-        <div>ID: ${poke.id}</div>
-      `;
+  card.innerHTML = createPokemonCardTemplate(poke, typeColors);
 
   card.addEventListener("click", () => showModal(poke));
   grid.appendChild(card);
@@ -218,14 +200,7 @@ function closeModal() {
 }
 
 function renderModal(poke) {
-  modalContent.innerHTML = `
-        <div class="close-modal" onclick="closeModal()">×</div>
-        <h2>${poke.name.toUpperCase()}</h2>
-        <img src="${poke.sprites.front_default}" alt="${poke.name}">
-        <p><strong>HP:</strong> ${poke.stats[0].base_stat}</p>
-        <p><strong>Attack:</strong> ${poke.stats[1].base_stat}</p>
-        <p><strong>Defense:</strong> ${poke.stats[2].base_stat}</p>
-      `;
+  modalContent.innerHTML = createModalTemplate(poke);
 }
 
 modal.addEventListener("click", (e) => {
