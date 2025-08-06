@@ -1,6 +1,6 @@
 function createPokemonCardTemplate(poke, typeColors) {
   const types = poke.types.map((t) => t.type.name);
-  
+
   return `
     <img src="${poke.sprites.front_default}" alt="${poke.name}">
     <div class="pokemon-name">${poke.name.toUpperCase()}</div>
