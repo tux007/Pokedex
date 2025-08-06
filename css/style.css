@@ -113,8 +113,9 @@ header h1 {
 .navigation-buttons {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 15px;
   margin: 30px auto;
+  flex-wrap: wrap;
 }
 .nav-btn {
   padding: 10px 20px;
@@ -132,11 +133,12 @@ header h1 {
 }
 .spinner {
   margin: 20px auto;
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid #007bff;
-  border-radius: 50%;
   width: 40px;
   height: 40px;
+  background-image: url('../assets/pokeball.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   animation: spin 1s linear infinite;
 }
 @keyframes spin {

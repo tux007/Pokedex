@@ -26,6 +26,7 @@ let currentPokemons = [];
 let allLoadedPokemons = [];
 let allPokemonNames = [];
 
+const startBtn = document.getElementById("startBtn");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const spinner = document.getElementById("spinner");
@@ -35,6 +36,7 @@ const modalContent = document.getElementById("modalContent");
 const searchInput = document.getElementById("searchInput");
 const searchBtn = document.getElementById("searchBtn");
 
+startBtn.addEventListener("click", goToStart);
 prevBtn.addEventListener("click", loadPreviousPokemons);
 nextBtn.addEventListener("click", loadNextPokemons);
 
@@ -182,8 +184,16 @@ async function loadPreviousPokemons() {
   prevBtn.disabled = false;
 }
 
+function goToStart() {
+  offset = 0;
+  grid.innerHTML = "";
+  loadCurrentPage();
+  updateButtonStates();
+}
+
 function updateButtonStates() {
   prevBtn.disabled = offset <= 0;
+  startBtn.disabled = offset <= 0;
 }
 
 function renderCard(poke) {
