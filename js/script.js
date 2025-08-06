@@ -35,10 +35,15 @@ const modal = document.getElementById("modal");
 const modalContent = document.getElementById("modalContent");
 const searchInput = document.getElementById("searchInput");
 const searchBtn = document.getElementById("searchBtn");
+const logoTitle = document.querySelector(".logo-title");
 
 startBtn.addEventListener("click", goToStart);
 prevBtn.addEventListener("click", loadPreviousPokemons);
 nextBtn.addEventListener("click", loadNextPokemons);
+
+logoTitle.addEventListener("click", () => {
+  location.reload();
+});
 
 // Load all Pokemon names for search functionality
 async function loadAllPokemonNames() {
@@ -267,4 +272,3 @@ document.getElementById("next").addEventListener("click", () => {
 
 loadAllPokemonNames();
 loadNextPokemons();
-
