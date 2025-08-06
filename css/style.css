@@ -37,22 +37,32 @@ header h1 {
   gap: 10px;
   margin-top: 10px;
 }
+.search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 .search-box input {
-  padding: 5px;
+  padding: 5px 30px 5px 5px;
   font-size: 1em;
 }
-.search-box button {
-  padding: 6px 12px;
-  background: #fff;
-  color: #ef5350;
+.clear-btn {
+  position: absolute;
+  right: 5px;
+  background: none;
   border: none;
-  border-radius: 4px;
+  font-size: 1.2em;
   cursor: pointer;
+  color: #666;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.search-box button:disabled {
-  background: #ccc;
-  color: #888;
-  cursor: not-allowed;
+.clear-btn:hover {
+  color: #333;
 }
 .container {
   max-width: var(--max-width);

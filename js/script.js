@@ -35,6 +35,7 @@ const modal = document.getElementById("modal");
 const modalContent = document.getElementById("modalContent");
 const searchInput = document.getElementById("searchInput");
 const searchBtn = document.getElementById("searchBtn");
+const clearBtn = document.getElementById("clearBtn");
 const logoTitle = document.querySelector(".logo-title");
 
 startBtn.addEventListener("click", goToStart);
@@ -43,6 +44,10 @@ nextBtn.addEventListener("click", loadNextPokemons);
 
 logoTitle.addEventListener("click", () => {
   location.reload();
+});
+
+clearBtn.addEventListener("click", () => {
+  resetSearch();
 });
 
 // Load all Pokemon names for search functionality
@@ -57,7 +62,13 @@ async function loadAllPokemonNames() {
 }
 
 searchInput.addEventListener("input", () => {
+  const hasValue = searchInput.value.trim().length > 0;
   searchBtn.disabled = searchInput.value.trim().length < 3;
+  clearBtn.style.display = hasValue ? "flex" : "none";
+
+  if (searchInput.value === "") {
+    resetSearch();
+  }
 });
 
 searchBtn.addEventListener("click", async () => {
@@ -88,6 +99,7 @@ searchBtn.addEventListener("click", async () => {
       }
 
       // Hide navigation buttons during search
+      startBtn.style.display = "none";
       prevBtn.style.display = "none";
       nextBtn.style.display = "none";
     } catch (e) {
@@ -95,38 +107,6 @@ searchBtn.addEventListener("click", async () => {
     } finally {
       spinner.style.display = "none";
     }
-  }
-});
-
-// Add function to reset search and return to normal navigation
-function resetSearch() {
-  searchInput.value = "";
-  searchBtn.disabled = true;
-  prevBtn.style.display = "inline-block";
-  nextBtn.style.display = "inline-block";
-  grid.innerHTML = "";
-  loadCurrentPage();
-}
-
-// Add reset button functionality
-searchInput.addEventListener("focus", () => {
-  if (prevBtn.style.display === "none") {
-    // Add a small reset hint
-    if (!document.querySelector(".search-reset-hint")) {
-      const hint = document.createElement("small");
-      hint.className = "search-reset-hint";
-      hint.textContent = "Clear search to return to normal browsing";
-      hint.style.color = "#666";
-      searchInput.parentNode.appendChild(hint);
-    }
-  }
-});
-
-searchInput.addEventListener("input", () => {
-  if (searchInput.value === "") {
-    resetSearch();
-    const hint = document.querySelector(".search-reset-hint");
-    if (hint) hint.remove();
   }
 });
 
@@ -145,20 +125,16 @@ async function loadCurrentPage() {
 async function loadNextPokemons() {
   nextBtn.disabled = true;
   spinner.style.display = "block";
-
   const res = await fetch(`${API_BASE_URL}?offset=${offset}&limit=20`);
   const data = await res.json();
-
   currentPokemons = [];
   grid.innerHTML = "";
-
   for (let item of data.results) {
     const pokeData = await fetch(item.url).then((res) => res.json());
     currentPokemons.push(pokeData);
     allLoadedPokemons.push(pokeData);
     renderCard(pokeData);
   }
-
   offset += 20;
   updateButtonStates();
   spinner.style.display = "none";
@@ -269,6 +245,17 @@ document.getElementById("next").addEventListener("click", () => {
     renderModal(currentPokemons[currentModalIndex]);
   }
 });
+
+function resetSearch() {
+  searchInput.value = "";
+  searchBtn.disabled = true;
+  clearBtn.style.display = "none";
+  startBtn.style.display = "inline-block";
+  prevBtn.style.display = "inline-block";
+  nextBtn.style.display = "inline-block";
+  grid.innerHTML = "";
+  loadCurrentPage();
+}
 
 loadAllPokemonNames();
 loadNextPokemons();
