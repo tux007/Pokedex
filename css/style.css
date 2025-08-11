@@ -9,7 +9,7 @@
 body {
   font-family: Arial, sans-serif;
   background: #f4f4f4;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 header {
   background-color: #ef5350;
@@ -279,56 +279,82 @@ header h1 {
   cursor: not-allowed;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
-@media (max-width: 320px) {
+@media screen and (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .search-box {
+    margin-top: 0;
+    width: 100%;
+  }
+
+  .container {
+    margin-top: 120px;
+  }
+}
+
+@media screen and (min-width: 321px) and (max-width: 469px) {
+  .container {
+    margin-top: 120px !important;
+    padding-top: 20px !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .search-box input {
+    font-size: 0.9em;
+  }
+
+  .search-box button {
+    font-size: 0.9em;
+    padding: 8px 12px;
+  }
+}
+
+@media screen and (max-width: 320px) {
   body {
     font-size: 14px;
   }
+
   .pokemon-card img {
     width: 80px;
     height: 80px;
   }
-  .search-box {
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
+
+  .container {
+    margin-top: 105px !important;
+    padding: 10px;
   }
-  .search-box input {
-    padding: 8px 25px 8px 8px;
-    font-size: 0.9em;
-    flex: 1;
+
+  header {
+    padding: 8px 15px;
   }
-  .search-box button {
-    padding: 8px 12px;
-    font-size: 0.9em;
-    min-width: auto;
-    white-space: nowrap;
-  }
+
   .navigation-buttons {
     flex-direction: column;
     align-items: center;
     gap: 10px;
   }
-  .container {
-    margin-top: 105px;
-    padding: 15px;
-  }
-  header {
-    padding: 10px 15px;
-  }
+
   .modal {
     padding: 10px;
   }
+
   .modal-content {
-    padding: 30px 20px;
+    padding: 20px;
     margin-bottom: 15px;
   }
+
   .modal-arrows {
     gap: 20px;
   }
+
   .modal-arrow {
-    width: 60px;
-    height: 60px;
-    font-size: 1.5em;
-    line-height: 1;
+    width: 50px;
+    height: 50px;
+    font-size: 1.3em;
   }
 }
