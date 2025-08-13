@@ -208,18 +208,26 @@ header h1 {
   margin-bottom: 20px;
 }
 
-@property --angle{
+@property --angle {
   syntax: "<angle>";
   initial-value: 0deg;
   inherits: false;
 }
 
-.modal-content::after, .modal-content::before{
-  content: '';
+.modal-content::after,
+.modal-content::before {
+  content: "";
   position: absolute;
   height: 100%;
   width: 100%;
-  background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+  background-image: conic-gradient(
+    from var(--angle),
+    #ff4545,
+    #00ff99,
+    #006aff,
+    #ff0095,
+    #ff4545
+  );
   top: 50%;
   left: 50%;
   translate: -50% -50%;
@@ -228,15 +236,15 @@ header h1 {
   border-radius: 15px;
   animation: 3s spin linear infinite;
 }
-.modal-content::before{
+.modal-content::before {
   filter: blur(1.5rem);
   opacity: 0.5;
 }
-@keyframes spin{
-  from{
+@keyframes spin {
+  from {
     --angle: 0deg;
   }
-  to{
+  to {
     --angle: 360deg;
   }
 }
