@@ -1,3 +1,14 @@
+.header-content {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-left: 20px;
+  padding-right: 20px;
+}
 :root {
   --max-width: 1440px;
 }
@@ -328,6 +339,11 @@ header h1 {
     gap: 10px;
   }
 
+  .header-content {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
   .search-box {
     margin-top: 0;
     width: 100%;
@@ -369,6 +385,10 @@ header h1 {
   .container {
     margin-top: 105px !important;
     padding: 10px;
+  }
+  .header-content {
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
   header {
