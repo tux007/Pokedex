@@ -31,6 +31,8 @@ let loadedCount = 0;
 const PAGE_SIZE = 20;
 const LOAD_BATCH_SIZE = 100;
 let lastOffsetBeforeSearch = 0;
+let isSearchActive = false;
+let searchPokemons = [];
 
 const startBtn = document.getElementById("startBtn");
 const prevBtn = document.getElementById("prevBtn");
@@ -95,7 +97,6 @@ function handleSearchInput() {
   clearBtn.style.display = hasValue ? "flex" : "none";
 
   if (searchInput.value === "") {
-    // Nach Suchfeld-Löschung: Zeige die Seite, auf der die Suche gestartet wurde
     offset = lastOffsetBeforeSearch;
     resetSearch();
   }
@@ -103,6 +104,8 @@ function handleSearchInput() {
 
 async function handleSearch() {
   lastOffsetBeforeSearch = offset;
+  isSearchActive = true;
+  searchPokemons = [];
   const query = searchInput.value.trim().toLowerCase();
   if (query.length < 3) return;
 
@@ -123,16 +126,14 @@ async function handleSearch() {
       alert("No Pokemon found matching your search");
       return;
     }
-    let results = [];
     for (let i = 0; i < matchingPokemons.length; i++) {
-      let poke = allPokemons.find((p) => p.name === matchingPokemons[i].name);
+      let poke = allPokemons.find(p => p.name === matchingPokemons[i].name);
       if (!poke) {
-        poke = await fetch(matchingPokemons[i].url).then((res) => res.json());
-        allPokemons.push(poke);
+        poke = await fetch(matchingPokemons[i].url).then(res => res.json());
       }
-      results.push(poke);
+      searchPokemons.push(poke);
     }
-    currentPokemons = results.slice(0, 20);
+    currentPokemons = searchPokemons.slice(0, 20);
     grid.innerHTML = "";
     currentPokemons.forEach(renderCard);
     hideNavigationButtons();
