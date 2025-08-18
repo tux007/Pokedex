@@ -210,10 +210,12 @@ function updateButtonStates() {
 function renderCard(poke) {
   const card = document.createElement("div");
   card.className = "pokemon-card";
-  const types = poke.types.map((t) => t.type.name);
+  const types = poke.types.map(t => t.type.name);
   const mainType = types[0];
   const bgColor = typeColors[mainType] || "#ddd";
   card.style.backgroundColor = bgColor + "88";
+  const typesHtml = types.map(t => `<span class="type" style="background:${typeColors[t] || '#888'}">${t}</span>`).join("");
+  poke.typesHtml = typesHtml;
 
   card.innerHTML = createPokemonCardTemplate(poke, typeColors);
   card.addEventListener("click", () => showModal(poke));
