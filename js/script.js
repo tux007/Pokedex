@@ -247,6 +247,9 @@ function renderCard(poke) {
 
 function showModal(poke) {
   currentModalIndex = currentPokemons.findIndex((p) => p.id === poke.id);
+  poke.heightInMeters = poke.height ? (poke.height / 10).toFixed(1) : "?";
+  poke.weightInKg = poke.weight ? (poke.weight / 10).toFixed(1) : "?";
+  poke.abilitiesHtml = poke.abilities ? poke.abilities.map(a => a.ability.name).join(", ") : "?";
   renderModal(poke);
   modal.style.display = "flex";
   document.body.style.overflow = "hidden";
