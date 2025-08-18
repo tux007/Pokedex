@@ -101,28 +101,29 @@ function handleSearchInput() {
   }
 }
 
-
-if (!document.getElementById('searchOverlay')) {
-  const overlay = document.createElement('div');
-  overlay.id = 'searchOverlay';
-  overlay.style.position = 'fixed';
-  overlay.style.top = '0';
-  overlay.style.left = '0';
-  overlay.style.width = '100vw';
-  overlay.style.height = '100vh';
-  overlay.style.background = 'rgba(0,0,0,0.7)';
-  overlay.style.display = 'none';
-  overlay.style.justifyContent = 'center';
-  overlay.style.alignItems = 'center';
-  overlay.style.zIndex = '2000';
-  overlay.innerHTML = createSearchOverlayTemplate('Kein Pokemon gefunden!');
+if (!document.getElementById("searchOverlay")) {
+  const overlay = document.createElement("div");
+  overlay.id = "searchOverlay";
+  overlay.style.position = "fixed";
+  overlay.style.top = "0";
+  overlay.style.left = "0";
+  overlay.style.width = "100vw";
+  overlay.style.height = "100vh";
+  overlay.style.background = "rgba(0,0,0,0.7)";
+  overlay.style.display = "none";
+  overlay.style.justifyContent = "center";
+  overlay.style.alignItems = "center";
+  overlay.style.zIndex = "2000";
+  overlay.innerHTML = createSearchOverlayTemplate("Kein Pokemon gefunden!");
   document.body.appendChild(overlay);
 }
 
 function showSearchOverlay() {
-  const overlay = document.getElementById('searchOverlay');
-  overlay.style.display = 'flex';
-  setTimeout(() => { overlay.style.display = 'none'; }, 2000);
+  const overlay = document.getElementById("searchOverlay");
+  overlay.style.display = "flex";
+  setTimeout(() => {
+    overlay.style.display = "none";
+  }, 2000);
 }
 
 async function handleSearch() {
@@ -150,9 +151,9 @@ async function handleSearch() {
       return;
     }
     for (let i = 0; i < matchingPokemons.length; i++) {
-      let poke = allPokemons.find(p => p.name === matchingPokemons[i].name);
+      let poke = allPokemons.find((p) => p.name === matchingPokemons[i].name);
       if (!poke) {
-        poke = await fetch(matchingPokemons[i].url).then(res => res.json());
+        poke = await fetch(matchingPokemons[i].url).then((res) => res.json());
       }
       searchPokemons.push(poke);
     }
@@ -233,15 +234,24 @@ function updateButtonStates() {
 function renderCard(poke) {
   const card = document.createElement("div");
   card.className = "pokemon-card";
-  const types = poke.types.map(t => t.type.name);
+  const types = poke.types.map((t) => t.type.name);
   const mainType = types[0];
   const bgColor = typeColors[mainType] || "#ddd";
   card.style.backgroundColor = bgColor + "88";
-  const typesHtml = types.map(t => `<span class="type" style="background:${typeColors[t] || '#888'}">${t}</span>`).join("");
+  const typesHtml = types
+    .map(
+      (t) =>
+        `<span class="type" style="background:${
+          typeColors[t] || "#888"
+        }">${t}</span>`
+    )
+    .join("");
   poke.typesHtml = typesHtml;
   poke.heightInMeters = poke.height ? (poke.height / 10).toFixed(1) : "?";
   poke.weightInKg = poke.weight ? (poke.weight / 10).toFixed(1) : "?";
-  poke.abilitiesHtml = poke.abilities ? poke.abilities.map(a => a.ability.name).join(", ") : "?";
+  poke.abilitiesHtml = poke.abilities
+    ? poke.abilities.map((a) => a.ability.name).join(", ")
+    : "?";
 
   card.innerHTML = createPokemonCardTemplate(poke, typeColors);
   card.addEventListener("click", () => showModal(poke));
@@ -252,7 +262,9 @@ function showModal(poke) {
   currentModalIndex = currentPokemons.findIndex((p) => p.id === poke.id);
   poke.heightInMeters = poke.height ? (poke.height / 10).toFixed(1) : "?";
   poke.weightInKg = poke.weight ? (poke.weight / 10).toFixed(1) : "?";
-  poke.abilitiesHtml = poke.abilities ? poke.abilities.map(a => a.ability.name).join(", ") : "?";
+  poke.abilitiesHtml = poke.abilities
+    ? poke.abilities.map((a) => a.ability.name).join(", ")
+    : "?";
   renderModal(poke);
   modal.style.display = "flex";
   document.body.style.overflow = "hidden";
@@ -294,11 +306,11 @@ function resetSearch() {
 }
 
 function showSpinner() {
-  spinner.style.display = "block";
+  document.getElementById("spinnerOverlay").style.display = "flex";
 }
 
 function hideSpinner() {
-  spinner.style.display = "none";
+  document.getElementById("spinnerOverlay").style.display = "none";
 }
 
 function init() {

@@ -25,10 +25,26 @@
         </div>
       </div>
     </header>
-
+    <div
+      id="spinnerOverlay"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 3000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <div class="spinner"></div>
+    </div>
     <div class="container">
       <div class="pokemon-grid" id="pokemonGrid"></div>
-      <div class="spinner" id="spinner" style="display: none"></div>
       <div class="navigation-buttons">
         <button id="startBtn" class="nav-btn">🏠 Back to Start</button>
         <button id="prevBtn" class="nav-btn">&larr; Previous 20</button>
