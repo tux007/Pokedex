@@ -22,3 +22,13 @@ function createModalTemplate(poke) {
     <p><strong>Defense:</strong> ${poke.stats[2].base_stat}</p>
   `;
 }
+
+function createSearchOverlayTemplate(message) {
+  return `
+    <div class="search-overlay">
+      <div class="search-overlay-content">
+        <span>${message}</span>
+      </div>
+    </div>
+  `;
+}

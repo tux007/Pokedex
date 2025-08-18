@@ -76,7 +76,6 @@ async function loadAllPokemons(start = 0, count = LOAD_BATCH_SIZE) {
     const res = await fetch(`${API_BASE_URL}?offset=${start}&limit=${count}`);
     const data = await res.json();
     allPokemonNames = data.results;
-    // Lade alle Details inkl. Fotos
     for (let i = 0; i < allPokemonNames.length; i++) {
       const pokeData = await fetch(allPokemonNames[i].url).then((res) =>
         res.json()
@@ -102,6 +101,30 @@ function handleSearchInput() {
   }
 }
 
+
+if (!document.getElementById('searchOverlay')) {
+  const overlay = document.createElement('div');
+  overlay.id = 'searchOverlay';
+  overlay.style.position = 'fixed';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.width = '100vw';
+  overlay.style.height = '100vh';
+  overlay.style.background = 'rgba(0,0,0,0.7)';
+  overlay.style.display = 'none';
+  overlay.style.justifyContent = 'center';
+  overlay.style.alignItems = 'center';
+  overlay.style.zIndex = '2000';
+  overlay.innerHTML = createSearchOverlayTemplate('Kein Pokemon gefunden!');
+  document.body.appendChild(overlay);
+}
+
+function showSearchOverlay() {
+  const overlay = document.getElementById('searchOverlay');
+  overlay.style.display = 'flex';
+  setTimeout(() => { overlay.style.display = 'none'; }, 2000);
+}
+
 async function handleSearch() {
   lastOffsetBeforeSearch = offset;
   isSearchActive = true;
@@ -123,7 +146,7 @@ async function handleSearch() {
       pokemon.name.toLowerCase().includes(query)
     );
     if (matchingPokemons.length === 0) {
-      alert("No Pokemon found matching your search");
+      showSearchOverlay();
       return;
     }
     for (let i = 0; i < matchingPokemons.length; i++) {
