@@ -239,6 +239,9 @@ function renderCard(poke) {
   card.style.backgroundColor = bgColor + "88";
   const typesHtml = types.map(t => `<span class="type" style="background:${typeColors[t] || '#888'}">${t}</span>`).join("");
   poke.typesHtml = typesHtml;
+  poke.heightInMeters = poke.height ? (poke.height / 10).toFixed(1) : "?";
+  poke.weightInKg = poke.weight ? (poke.weight / 10).toFixed(1) : "?";
+  poke.abilitiesHtml = poke.abilities ? poke.abilities.map(a => a.ability.name).join(", ") : "?";
 
   card.innerHTML = createPokemonCardTemplate(poke, typeColors);
   card.addEventListener("click", () => showModal(poke));
