@@ -3,7 +3,7 @@ const typeColors = {
   water: "#6890F0",
   grass: "#78C850",
   electric: "#F8D030",
-  poison: "#A040A0",
+  poison: "#C27AC0",
   bug: "#A8B820",
   normal: "#A8A878",
   flying: "#A890F0",
